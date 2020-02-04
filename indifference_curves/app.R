@@ -16,7 +16,7 @@ source("indifference_functions.R")
 # Define UI for application that draws a histogram
 ui <- fluidPage(
   setSliderColor("purple", sliderId = 1),
-  column(6, offset = 4,
+  sidebarPanel(
          wellPanel(
          chooseSliderSkin("Modern"),
          sliderInput("budget",
@@ -24,12 +24,9 @@ ui <- fluidPage(
                      min = 10,
                      max = 50,
                      value = 30))),
-  column(6, offset = 3,
-         plotlyOutput("budget_plot", width = "120%", height = "450px", inline = TRUE)
-         ),
-  column(6, offset = 4,
+  mainPanel(
+         plotlyOutput("budget_plot", height = "450px"),
          textOutput("optimal_points"))
-
 )
 
 server <- function(input, output) {

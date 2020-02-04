@@ -1,5 +1,5 @@
 ---
-title: "Indifference Curves"
+title: "The Utility Function, Indifference Curves, and Healthcare"
 author: "Brennan T. Beal, PharmD"
 output: 
   html_document:
@@ -22,6 +22,7 @@ library(knitr)
 library(plotly)
 library(shiny)
 library(tidyverse)
+library(ggthemes)
 
 # ------------------------ Creating a utility matrix for later plotting
 
@@ -92,7 +93,7 @@ budget_plot <- function(budget_input){
 
 ## Impetus For The Post
 
-When I first learned about indifference curves, I was shown a monstrosity that you all may be familiar. It looked a bit like the image below. If you were lucky, you were shown a computer generated image. The less fortunate had a professor furiously scribbling them onto a board.
+When I first learned about utility functions and indifference curves, I was shown an intimidating figure that looked a bit like the image below. If you were lucky, you were shown a computer generated image. The less fortunate had a professor furiously scribbling them onto a board.
 <br>
 <br>
 
@@ -101,11 +102,11 @@ knitr::include_graphics("indifference_curves_complex.jpg")
 ```
 
 
-A few things were immediately of concern: why are there multiple indifference curves if it only represesnts one consumer? Why are the curves moving? And... who is Natasha? So, while answering my own questions, I thought sharing the knowledge would be helpful. This post will hopefully provide a better description than maybe most of us have heard and by the end you will understand:
+A few things were immediately of concern: why are there multiple indifference curves for one function if it only represesnts one consumer? Why are the curves moving? And... who is Natasha? So, while answering my own questions, I thought sharing the knowledge would be helpful. This post will hopefully provide a better description than maybe most of us have heard and by the end you will understand:
 
 1. What indifference curves are and what they represent
 
-2. How a budget constraint relates to these indifference curves
+2. How a budget constraint relates to these indifference curves and the overall utility function
 
 3. We will discuss how to optimize utility within these constraints (if you're brave)
   
@@ -113,18 +114,44 @@ A few things were immediately of concern: why are there multiple indifference cu
 
 For the scope of this post, I'll asssume you have some fundamental understanding of utility theory. 
 
-## Indifference Curves
+## Utility and Indifference Curves 
 
-An indifference curve represents a function which describes all the different combinations between two goods that yields the same amount of utility (i.e. to which a person would be indifferent). So, an indifference function defined by $U(x,y) = 2x + y$ would mean that a person would be have an indifference to two "$x$'s" or one "$y$". In more practical terms, let x represent quantity of wine while y represents a quantity of cheese. If the same  utility function from above applies, then a consumer would be indifferent between two units of wine and one serving of cheese.
+Simply stated, a utility function is a function that explains the amount of utility a consumer posesses given their consumption of two different goods, $x$, and $y$. An indifference curve is just an infintesimal slice that function which describes all the different combinations between two goods that yields the same amount of utility (i.e. to which a person would be indifferent). So, an indifference function defined by $U(x,y) = 2x + y$ would mean that a person would be have an indifference to two "$x$'s" or one "$y$" and all the differernt possibilities along that curve. In more practical terms, let x represent quantity of wine while y represents a quantity of cheese. If the same  utility function from above applies, then a consumer would be indifferent between two units of wine and one serving of cheese.
 <br>
 
-So, that is the thought behind indifference curves - combinations of quantities between two goods that yield the same utility. Notably, there could be any number of goods within a utility function but we will stick to two ($x$ and $y$) for grpahical purposes. But we still have some things left wanting - why are there multiple on the same coordinate plane (remember the plots from above)?
+An indifference curve in two dimensions could look something like this:
 <br>
 
-Something that was not abundantly clear to me is that the left side of an equation represents a $z$ axis. In theory, someone could have any amount of utility that they can afford - we will get to that in a bit. And intuitively, a consumer will always prefer to maximize their utility. With this in mind, multiple curves on a single plane are really just *projections* from a 3-dimensional graph. 
+```{r, fig.height=3.5, fig.width=4, fig.align="center"}
+x <- 1:100
+y <- -log(x) + 5
+
+df <- data.frame(
+  x = 1:100,
+  y = y
+)
+
+ggplot(df, aes(x, y)) +
+  geom_point(color = "purple") +
+  geom_path() +
+  theme_minimal()
+```
 <br>
 
-The utility function actually looks like this (this equation is known as the Cobb-Douglas function and it was originally created to describe production):
+A few things to point out here before moving on. 
+<br>
+
+1. Notice that the curve slopes downwards - this must necessarily be the case; as one increases their consumption of $y$, they will give up the other good that they were indifferent to, $x$.
+
+2. Everything below the curve represents bundles that do not maximize utility (the sums of both $x$ and $y$ do not yield a utility equal to those along the curve). Utility theory assumes that a consume will always seek to maximize utility.
+
+3. Understand that the slope is non-linear. In general, the more one has of something, the less utility they will gain from another and conversely, the more they would give up to acquire the other good. This slope has an official name: Marginal Rate of Substitution or $MRS$. We will come back to that later.  
+<br>
+
+But that was just one slice that I have already noted as infinitesimally small.
+<br>
+
+A true utility function (comprised of an infinite amount of indifference curves), actually looks something like this (this equation is known as the Cobb-Douglas function and it was originally created to describe production):
 $$U(x,y) = Ax^{a}y^{1-a} $$
 <br>
 
@@ -182,35 +209,19 @@ font_list <- list(
 <br>
 <br>
 
-Now that you've seen the indifference curves, here are a few important concepts to cover here regarding assumptions and properties of the utility function and the implied indifference curves. 
-
-
-### Properties and Assumptions of Indifference Curves
-<span style="color:#59b300">**Indifference curves are downward sloping:**</span> this means that, from left to right, or as x increases, y must necessarily decrease. The property is derived from the fact that if a consumer is truly indifferent to some bundle of goods, an increase in one will mean a decrease in another. Further, this slope is known as the "Marginal Rate of Substitution" (MRS), which means that the slope at any given point represents the consumers willingness to substitute his current bundle for another. Mathematically: $$MRS = \delta y/\delta x$$
+Manipulate the graphs and take a look around. Here we can see that all of those two dimensional lines are really just <span style="color:#59b300">**projections of a much larger 3-dimensional utility function**</span>. And the true indifference curve that a consumer is to is only limited by the amount of utility they can purchase.
 <br>
 
-<span style="color:#59b300">**Diminishing Marginal Rates of Substitution:**</span> implies that as you gain more more of one good, you are willing to give up less of the other. Further, the negative slope of our indifference curve. 
-As the combinations of $x$ and $y$ increase, utility increases. Hopefully now the intuition behind the indifference curves (really, indifference surfaces) are clear. Multiple curves represent the topography of a given utility function.
-<br>
-
-<span style="color:#59b300">**Higher curves are preferred to lower curves:**</span> intuitively, a consumer will seek to maximize their utility and will do so to the extent possible (usually within some given constraint). This also means that if a consumer has access to a certain amount of utility, the area under the curve is preferred less to points along the curve (because that area represents a lower utility, topographically).
-
-<span style="color:#59b300">**Preferences are transitive:**</span>  assumes that each point on a higher indifference curve is preferred to any point on a lower curve. Further, if all points on $IC_3$ is preferred to points on $IC_2$, and all points on $IC_2$ are preferred to points on $IC_1$, then all points on $IC_3$ are preferred to $IC_1$ - this along with the negatively slopping lines indicate that various indifference curves may never cross. 
-<br>
-
-With this knowledge, we can now talk about the budget constraint and how it interacts with our indifference curves. 
+And speaking of the amount of utility one can purchase... let's talk about budget constraints.
 
 ## Budget Constraints
 
-As I said earlier, utility theory suggests that one will seek to maximize their utility in all situations. So, naturally, their must be some constraint. And it isn't hard to imagine that the constraint is often a given budget. In keeping with our example, we can note that a consumer has some indifference towards wine and cheese within the correct combinations (see the $MRS$ that we spoke of earlier). Further, utility would be the highest with an infinite amount of both... but we know, in reality, this dcannot be the case (for most of us).
+As I said earlier, utility theory suggests that one will seek to maximize their utility in all situations. So, naturally, their must be some constraint else a consumer would consume indefinitely. And so it isn't hard to imagine that the consumer's constraint is often a set budget - a finite amount of money they have to spend. A budget, then, tells us how much we can spend and therefore we must <span style="color:#59b300">**maximize our utility within that constraint**</span>. 
 <br>
 
-A budget, then, tells us how much we can spend so that we must maximize our utility within that constraint. 
-<br>
+Let us use $z$ again to denote our budget and assume that wine is half the amount of cheese. In this case, the price of one unit of wine, $P_x$, is \$0.25 and the price of one unit of cheese, $P_y$, is \$0.50 (we are living in a golden age). Your budget is then defined as $$I \leq (1/4)x + (1/2)y$$.
 
-Let us use $z$ again to denote our budget and assume that wine is half the amount of cheese. In this case, the price of one unit of wine, $P_x$, is \$0.25 and the price of one unit of cheese, $P_y$, is \$0.50 (we are living in a golden age). Your budget is then defined as $$I < (1/4)x + (1/2)y$$
-
-This budget function could be anything and the coefficients represent prices. In this case, I can afford 2 units of cheese to one unit of wine and my budget constraint, $I$, will tell me how much of each I can buy. Additionally, the ratio of prices, $P_y/P_x$, represents the slope of the budget function.
+The coefficients of a budget function represent prices and could be anything in theory. In this case, I can afford 2 units of cheese to one unit of wine and my budget constraint, $I$, will tell me how much of each I can buy. Additionally, the ratio of prices, $P_y/P_x$, represents the slope of the budget function.
 <br>
 
 In reality, the budget function, similar to a utility function, looks something like this (depending on the ratio of prices for two goods):
@@ -264,14 +275,14 @@ b_plot <- plot_ly() %>%
 div(b_plot, align = "center")
 ```
 
-As your budget increases, $z$, so does your ability to purchase larger quantities of each item. But a consumer is limited to the budget she has. And, similar to the consumers utility: we assume that a consumer maximizes their budget (so that $budget = (1/4)x + (1/2)y$) and that everything below the curve is considered suboptimal. As a persons budget increases, the line shifts right, and left as a budget decreases.
+As your budget increases, $z$, so does your ability to purchase larger combinations of goods, $x$ and $y$. But a consumer is limited to the budget she has. And, similar to the consumers utility: we assume that a consumer maximizes their budget (so that $budget = (1/4)x + (1/2)y$) and that everything below the curve is considered suboptimal. As a persons budget increases, the line shifts right, and left as a budget decreases.
 <br>
 
-Now the question remains, how to we maximize utility within a given budget constraint if we know the functions that define both?
+So now the question remains, how to maximize utility within a given budget constraint if we know the functions that define both?
 
 ## Maximizing the Utility Function
 
-#### Marginal Rate of Substitution = Ratio of Prices
+### Marginal Rate of Substitution = Ratio of Prices
 The first, and simplest method, is to find the point where the budget constraint, $budget = (1/4)x + (1/2)y$, and the utility function, $U(x,y) = Ax^{a}y^{1-a}$, are tangent. In other words, the point on both graphs where the slopes the slopes equal.
 <br>
 
@@ -303,22 +314,60 @@ $$\frac{1/4}{1/2} = \frac{3y}{2x}$$
 We find out that the optimal values to maximize utility within our budgete constraints are:
 $$ y = 40, x = 120$$
 
+Finally, knowing our $x$ and $y$ values, we can see that our budget is maximized and the maximum utility we can purchase is around 77 units!
 
-#### Lagrangian Multipliers
+### Lagrangian Multipliers
 The more flexible, but slightly more mathematically intense option, is to use what is know as a Langrangian multiplier of the utility function with a given constraint (in this case, our budget constraint). Langrangian multipliers are, graphically, a way to find *local* minima and maxima within any given constraint so it works well in our context.
 <br>
 
 The formal equation reads:
-$$\mathcal{L}(x, y, \lambda) = U(x,y) - \lambda(xP_x + yP_y - I) $$
+$$\mathcal{L}(x, y, \lambda) = U(x,y) + \lambda(I - xP_x + yP_y) $$
 
-The equation requires the partial derivation of $\mathcal{L}$ with respect to $x$, $y$, and $\lambda$ and so we won't go through that here. Find that in Appendix A. For now, know that we arrive at the same conclusion given the constraints described at the beginning of this section.
+We must then set all the partial derivatives equal to zero (using the same utility and budget functions from above) and then solve the systems of equations:
 
+$$\frac{\partial \mathcal{L}}{\partial x} = .6x^{-.4}y^.4 - \frac{\lambda}{4} = 0$$
+$$\frac{\partial \mathcal{L}}{\partial y} = x^{.6}.4y^{-.6} - \frac{\lambda}{2} = 0$$
+$$\frac{\partial \mathcal{L}}{\partial \lambda} = 50 - (1/4)x - (1/2)y = 0$$
+<br>
+
+Solving for these systems of equations, we get the same result as above
 $$ y = 40, x = 120$$
 
-See for yourself!
+Although, one interesting thing that comes from solving the utility maximization problem this way, is that we can extract the value of $\lambda$. This value represents what is known as <span style="color:#59b300">**the shadow price**</span> of the budget constraint, which is the incremental value, in terms of one's utility, of adding one additional dollar to your budget. Since we know $x$ and $y$ here, we can calculate;
+
+$$.6x^{-.4}y^.4 = \frac{\lambda}{4}$$
+$$.6(120)^{-.4}(40)^.4 = \frac{\lambda}{4}$$
+$$\lambda = 1.55$$
+
+So then we would gain 1.55 additional utility units by adding an additional dollar to our budget!
+
+
+Check the process out for yourself! Note that as you increase the budget, the tangent utility function increases (note that these functions are not always graphically exact so estimates will be approximates)
 
 ```{r}
 knitr::include_app("https://brennanbeal.shinyapps.io/indifference_curves/",
                    height = "800px")
 ```
+
+
+
+## Appendix
+
+### Properties and Assumptions of Indifference Curves
+<span style="color:#59b300">**Indifference curves are downward sloping:**</span> this means that, from left to right, or as x increases, y must necessarily decrease. The property is derived from the fact that if a consumer is truly indifferent to some bundle of goods, an increase in one will mean a decrease in another. Further, this slope is known as the "Marginal Rate of Substitution" (MRS), which means that the slope at any given point represents the consumers willingness to substitute his current bundle for another. Mathematically: $$MRS = \delta y/\delta x$$
+<br>
+
+<span style="color:#59b300">**Diminishing Marginal Rates of Substitution:**</span> implies that as you gain more more of one good, you are willing to give up less of the other. Further, the negative slope of our indifference curve. 
+As the combinations of $x$ and $y$ increase, utility increases. Hopefully now the intuition behind the indifference curves (really, indifference surfaces) are clear. Multiple curves represent the topography of a given utility function.
+<br>
+
+<span style="color:#59b300">**Higher curves are preferred to lower curves:**</span> intuitively, a consumer will seek to maximize their utility and will do so to the extent possible (usually within some given constraint). This also means that if a consumer has access to a certain amount of utility, the area under the curve is preferred less to points along the curve (because that area represents a lower utility, topographically).
+
+<span style="color:#59b300">**Preferences are transitive:**</span>  assumes that each point on a higher indifference curve is preferred to any point on a lower curve. Further, if all points on $IC_3$ is preferred to points on $IC_2$, and all points on $IC_2$ are preferred to points on $IC_1$, then all points on $IC_3$ are preferred to $IC_1$ - this along with the negatively slopping lines indicate that various indifference curves may never cross. 
+<br>
+
+With this knowledge, we can now talk about the budget constraint and how it interacts with our indifference curves.
+
+
+
 
