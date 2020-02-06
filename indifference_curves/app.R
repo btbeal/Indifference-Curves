@@ -18,6 +18,9 @@ ui <- fluidPage(
   setSliderColor("purple", sliderId = 1),
   sidebarPanel(
          wellPanel(
+           "Input your proposed budget and hover the mouse to see where the lines are tangent to each other - this will represent your maximum utility. 
+           Note that there are x and y optimal values at the bottom; however, the graphics are approximations and so they will not always align.",
+           br(),
          chooseSliderSkin("Modern"),
          sliderInput("budget",
                      "Input your proposed budget: ",
@@ -48,7 +51,7 @@ server <- function(input, output) {
                      size = 90
                    )) %>%
        add_trace(data = user_defined_data, x = ~x, y = ~y, z = ~z, type = 'scatter3d', mode = 'lines',
-                 line = list(color = 'black', width = 9)) %>% 
+                 line = list(color = 'black', width = 2)) %>% 
        layout(
          showlegend = FALSE,
          scene = list(

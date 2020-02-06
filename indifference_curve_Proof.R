@@ -1,5 +1,6 @@
 # --- Proof of concept
 library(plotly)
+library(ggthemes)
 library(Hmisc)
 library(tidyverse)
 # utility function where:
@@ -159,3 +160,73 @@ systems_solver <-function(budget_input){
 
 
 
+
+
+budget_plot <- function(budget_input){
+  # the budget function will be defined as z(x,y) = (1/4)x + (1/2)y
+  # where budget_input = z
+  x_intercept <- floor(budget_input/0.25)    # solve for maximum x coordinate (0,x)
+  if(x_intercept > 200){
+    x_intercept <- 200
+  }
+  y <- c()
+  for(i in 1:x_intercept){                # iterate through all x up to x_intercept
+    y_coord <- (budget_input - 0.25*i)/0.5
+    if(y_coord > 200){
+      y <- NA
+    }
+    y <- c(y, y_coord)
+  }
+  
+  data <- data.frame(
+    x = 1:x_intercept,
+    y = y,
+    z = rep(budget_input, x_intercept)
+  )
+  return(data)
+}
+
+budget_list <- lapply(seq(from = 10, to = 60, by = 10), budget_plot)
+
+
+full_df <- do.call(rbind, budget_list)
+
+ggplot() +
+  geom_point(data = full_df, aes(x = x, y = y, color = z)) +
+  theme_minimal() +
+  ylim(0,100) +
+  scale_color_continuous(name = "Budget")
+
+
+
+
+utility_plot <- function(utility_input){
+  # the utility function will be defined as z(x,y) = (x^0.6)(y^0.4)
+  # where budget_input = z
+  
+  y <- c()
+  for(i in 1:100){                # iterate through all x up to 100
+    y_coord <- (utility_input/(i^(0.6)))^(10/4)
+    y <- c(y, y_coord)
+  }
+  
+  data <- data.frame(
+    x = 1:100,
+    y = y,
+    z = rep(utility_input, 100)
+  )
+  return(data)
+}
+
+utility_list <- lapply(seq(from = 10, to = 60, by = 10), utility_plot)
+
+
+full_df <- do.call(rbind, utility_list)
+
+ggplot() +
+  geom_point(data = full_df, aes(x = x, y = y, color = z)) +
+  geom_path(data = full_df, aes(x = x, y = y, color = z)) +
+  theme_minimal() +
+  ylim(0,100) +
+  scale_color_continuous(name = "Utility")
+  
