@@ -18,8 +18,8 @@ ui <- fluidPage(
   setSliderColor("purple", sliderId = 1),
   sidebarPanel(
          wellPanel(
-           "Input your proposed budget and hover the mouse to see where the lines are tangent to each other - this will represent your maximum utility. 
-           Note that there are x and y optimal values at the bottom; however, the graphics are approximations and so they will not always align.",
+           "Once you input your budget, drag your cursor to see where the slopes of both align! (It may be helpful to drage the graph around to view from the bottom)",
+           br(),
            br(),
          chooseSliderSkin("Modern"),
          sliderInput("budget",
@@ -28,9 +28,8 @@ ui <- fluidPage(
                      max = 50,
                      value = 30))),
   mainPanel(
-         plotlyOutput("budget_plot", height = "450px"),
-         textOutput("optimal_points"))
-)
+         plotlyOutput("budget_plot", height = "450px"))
+  )
 
 server <- function(input, output) {
    
@@ -65,20 +64,6 @@ server <- function(input, output) {
        )
    })
    
-   
-   output$optimal_points <- renderText({
-     # this is the systems of equations solved for:
-     # ---- Utility = x^0.6y^0.4
-     # ---- Budget  = (1/4)x + (1/2)y
-     #
-     # notably, if these change, so will the dynamics of x and y
-     I <- input$budget
-     
-     x <- (12/5)*I
-     y <- 2*(I - (12/20)*I)
-     
-     print(paste("Your optimal points are x =", x,"and y =", y))
-   })
    
    
 }

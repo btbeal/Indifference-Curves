@@ -5,8 +5,8 @@ account: brennanbeal
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 1754130
-bundleId: 2772667
+bundleId: 2780541
 url: https://brennanbeal.shinyapps.io/indifference_curves/
-when: 1580769070.68464
+when: 1581019730.63965
 asMultiple: FALSE
 asStatic: FALSE
