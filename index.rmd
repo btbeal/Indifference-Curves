@@ -172,7 +172,8 @@ A few things to point out here before moving on.
 But those are just a few slices that I have already noted as infinitesimally small.
 <br>
 
-A true utility function (comprised of an infinite amount of indifference curves), actually looks something like this (this equation is known as the Cobb-Douglas function and it was originally created to describe production):
+A true utility function (comprised of an infinite amount of indifference curves), actually looks something like the figure below. Manipulate the graph and take a look around. Here we can see that all of those two dimensional lines are really just <span style="color:#4b2e83">**projections of a much larger 3-dimensional utility function**</span>. And the true indifference curve is only limited by the amount of utility they can purchase:
+
 $$U(H,C) = AH^{a}C^{1-a} $$
 <br>
 
@@ -230,7 +231,7 @@ font_list <- list(
 <br>
 <br>
 
-Manipulate the graphs and take a look around. Here we can see that all of those two dimensional lines are really just <span style="color:#4b2e83">**projections of a much larger 3-dimensional utility function**</span>. And the true indifference curve is only limited by the amount of utility they can purchase.
+
 <br>
 
 And speaking of the amount of utility one can purchase... let's talk about budget constraints.
