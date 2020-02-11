@@ -164,7 +164,7 @@ A few things to point out here before moving on.
 
 2. Notice that the curves slope downwards - this must necessarily be the case; as one increases their consumption of $H$, they will give up the other good that they were indifferent to, $C$.
 
-3. Everything below the curve of a given utility represents bundles that do not maximize utility. Utility theory assumes that a consume will always seek to maximize utility.
+3. Everything below the curve of a given utility represents bundles with less utility. Utility theory assumes that a consume will always seek to maximize utility.
 
 4. Understand that the slope is non-linear. In general, the more one has of something, the less utility they will gain from another unit and conversely, the more they would give up to acquire the other good. This slope has an official name: Marginal Rate of Substitution or $MRS$. We will come back to that later.  
 <br>
@@ -240,9 +240,9 @@ And speaking of the amount of utility one can purchase... let's talk about budge
 As I said earlier, utility theory suggests that one will seek to maximize their utility in all situations. So, naturally, their must be some constraint else a consumer would consume indefinitely, which we know is not reality. And so it isn't hard to imagine that the consumer's constraint is often a set budget - a finite amount of money they have to spend. A budget, then, tells us how much we can spend and therefore we must <span style="color:#4b2e83">**maximize our utility within that constraint**</span>. 
 <br>
 
-Let us use $z$ again to denote our budget and assume that Healthcare is half the price of all other consumption (again, an arbitrary equation). In this case, the price of one unit of Healthcare, $P_H$, is \$0.25 and the price of one unit of other consumption, $P_C$, is \$0.50. Your budget is then defined as $$I \leq (1/4)H + (1/2)C$$.
+Let us use $z$ again to denote our budget and assume that Healthcare is half the price of all other consumption (again, an arbitrary equation). In this case, the price of one unit of Healthcare, $P_H$, is \$0.25 and the price of one unit of other consumption, $P_C$, is \$0.50. Your budget is then defined as $$I \geq (1/4)H + (1/2)C$$.
 
-The coefficients of a budget function represent prices and could be anything in theory. In this case, I can afford 2 units of cheese to one unit of wine and my budget constraint, $I$, will tell me how much of each I can buy. Additionally, the ratio of prices, $P_C/P_H$, represents the slope of the budget function.
+The coefficients of a budget function represent prices and could be anything in theory. In this case, I can afford 2 units of H to one unit of C and my budget constraint, $I$, will tell me how much of each I can buy. Additionally, the ratio of prices, $P_C/P_H$, represents the slope of the budget function.
 <br>
 
 Again, in two-dimensions, the budget function could look something like this:
@@ -338,7 +338,7 @@ b_plot <- plot_ly() %>%
 div(b_plot, align = "center")
 ```
 
-As your budget increases, $z$, so does your ability to purchase larger combinations of goods, $H$ and $C$. But a consumer is limited to the budget she has. And, similar to the consumers utility: we assume that a consumer maximizes their budget (so that $I = (1/4)H + (1/2)C$) and that everything below the curve is considered suboptimal. As a persons budget increases, the line shifts right, and left as a budget decreases.
+As your budget increases, $z$, so does your ability to purchase larger combinations of goods, $H$ and $C$. As a person's budget increases, the plot shifts right, and left as a budget decreases.
 <br>
 
 So now the question remains, how to maximize utility within a given budget constraint if we know the functions that define both?
